@@ -7,6 +7,7 @@ import Home from "./components/Home";
 import CreateAccount from "./components/CreateAccount";
 import RecoverAccount from "./components/RecoverAccount";
 import WalletView from "./components/WalletView";
+import { chainOptions } from "./chains";
 
 function App() {
   const [wallet, setWallet] = useState(null);
@@ -20,24 +21,7 @@ function App() {
         <Select
           onChange={(val) => setSelectedChain(val)}
           value={selectedChain}
-          options={[
-            {
-              label: "Ethereum",
-              value: "0x1",
-            },
-            {
-              label: "Mumbai Testnet",
-              value: "0x13881",
-            },
-            {
-              label: "Polygon",
-              value: "0x89",
-            },
-            {
-              label: "Avalanche",
-              value: "0xa86a",
-            },
-          ]}
+          options={chainOptions}
           className="dropdown"
         ></Select>
       </header>

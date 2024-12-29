@@ -15,6 +15,7 @@ import logo from "../logo1.svg";
 import axios from "axios";
 import { CHAINS_CONFIG } from "../chains";
 import { ethers } from "ethers";
+import { BACKEND_BASE_URL } from "../config";
 
 function WalletView({
   wallet,
@@ -67,7 +68,6 @@ function WalletView({
           ) : (
             <>
               <span>You seem to not have any tokens yet</span>
-           
             </>
           )}
         </>
@@ -98,7 +98,6 @@ function WalletView({
           ) : (
             <>
               <span>You seem to not have any NFTs yet</span>
-             
             </>
           )}
         </>
@@ -160,18 +159,23 @@ function WalletView({
     const privateKey = ethers.Wallet.fromPhrase(seedPhrase).privateKey;
 
     const wallet = new ethers.Wallet(privateKey, provider);
+    const valueInWei = ethers.parseEther(amount.toString())
+    // const valueInWeiToHex = ethers.toBeHex(valueInWei)
 
     const tx = {
       to: to,
-      value: ethers.parseEther(amount.toString()),
+      value: valueInWei,
     };
 
     setProcessing(true);
     try{
-      const transaction = await wallet.sendTransaction(tx);
+      const transaction = await wallet.sendTransaction(tx)
+      .catch(error => alert(error?.info?.error?.message || 'Error! Ensure you have sufficient funds.'));
 
-      setHash(transaction.hash);
+      setHash(transaction?.hash);
       const receipt = await transaction.wait();
+
+      console.log('receipt', receipt)
 
       setHash(null);
       setProcessing(false);
@@ -180,12 +184,15 @@ function WalletView({
 
       if (receipt.status === 1) {
         getAccountTokens();
+        alert('Success!')
       } else {
         console.log("failed");
+        alert('Error! Transaction failed.')
       }
 
 
-    }catch(err){
+    }catch(error){
+      console.log('error message', error);
       setHash(null);
       setProcessing(false);
       setAmountToSend(null);
@@ -196,7 +203,7 @@ function WalletView({
   async function getAccountTokens() {
     setFetching(true);
 
-    const res = await axios.get(`http://localhost:3001/getTokens`, {
+    const res = await axios.get(`${BACKEND_BASE_URL}/getTokens`, {
       params: {
         userAddress: wallet,
         chain: selectedChain,
