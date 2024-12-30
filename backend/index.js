@@ -53,5 +53,3 @@ Moralis.start({
     console.log(`Listening for API Calls`);
   });
 });
-
-module.exports = app;
