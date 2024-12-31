@@ -3,12 +3,20 @@ import Moralis from "moralis";
 import cors from "cors";
 import dotenv from "dotenv";
 
-dotenv.config();
+dotenv.config(); // Load environment variables
+
+// Start Moralis
+Moralis.start({
+  apiKey: process.env.MORALIS_KEY, // Add fallback for debugging
+}).then(() => {
+  console.log("Moralis started successfully");
+});
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 
+// Define endpoints
 app.get("/getTokens", async (req, res) => {
   try {
     const { userAddress, chain } = req.query;
@@ -52,8 +60,9 @@ app.get("/getTokens", async (req, res) => {
   }
 });
 
+// Export as a serverless function
 const server = app;
 
 export default (req, res) => {
-  return server(req, res); // Export as a serverless function
+  return server(req, res); 
 };
