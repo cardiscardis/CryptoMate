@@ -1,9 +1,12 @@
 {
-    "version": 2,
-    "routes": [
-      {
-        "src": "/(.*)",
-        "dest": "index.js"
-      }
-    ]
-  }
+  "version": 2,
+  "builds": [
+    {
+      "src": "api/**/*.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    { "src": "/getTokens", "dest": "/api/getTokens.js" }
+  ]
+}
