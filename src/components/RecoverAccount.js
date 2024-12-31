@@ -56,6 +56,7 @@ function RecoverAccount({ setWallet, setSeedPhrase }) {
         }
           className="frontPageButton"
           type="primary"
+          style={{backgroundColor: 'green'}}
           onClick={() => recoverWallet()}
         >
           Recover Wallet

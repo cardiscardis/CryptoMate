@@ -1,6 +1,8 @@
 import "./App.css";
 import { useState } from "react";
-import logo from "./logo1.svg";
+// import logo from "./logo1.svg";
+import logoSmall from "./karenLogoSmall.png"
+import logoLarge from "./karenLogo.png"
 import { Select } from "antd";
 import { Routes, Route } from "react-router-dom";
 import Home from "./components/Home";
@@ -17,7 +19,7 @@ function App() {
   return (
     <div className="App">
       <header>
-        <img src={logo} className="headerLogo" alt="logo" />
+        <img src={logoLarge} className="headerLogo" alt="logo" />
         <Select
           onChange={(val) => setSelectedChain(val)}
           value={selectedChain}

@@ -16,6 +16,10 @@ function CreateAccount({setWallet, setSeedPhrase}) {
 
 
   function setWalletAndMnemonic(){
+    if(!newSeedPhrase) {
+      alert('Generate a seed phrase to continue')
+      return
+    }
     setSeedPhrase(newSeedPhrase);
     setWallet(ethers.Wallet.fromPhrase(newSeedPhrase).address)
   }
@@ -34,6 +38,7 @@ function CreateAccount({setWallet, setSeedPhrase}) {
         <Button
           className="frontPageButton"
           type="primary"
+          style={{backgroundColor: 'green'}}
           onClick={() => generateWallet()}
         >
           Generate Seed Phrase

@@ -1,5 +1,6 @@
 import React from "react";
-import mwallet from "../logo2.png";
+// import mwallet from "../logo2.png";
+import kwallet from "../karenLogoSmall.png"
 import { Button } from "antd";
 import { useNavigate } from "react-router-dom";
 
@@ -13,13 +14,16 @@ function Home() {
   return (
     <>
       <div className="content">
-        <img src={mwallet} alt="logo" className="frontPageLogo" />
-        <h2> Hey There 👋 </h2>
-        <h4 className="h4"> Welcome to your Web3 Wallet</h4>
+        <img src={kwallet} alt="logo" className="frontPageLogo" style={{
+          width: 80, height: 80
+        }} />
+        <h2> Howdy! 👋 </h2>
+        <h4 className="h4"> Welcome to Karen Web3 Wallet</h4>
         <Button
           onClick={() => navigate("/yourwallet")}
           className="frontPageButton"
           type="primary"
+          style={{backgroundColor: 'green'}}
         >
           Create A Wallet
         </Button>
